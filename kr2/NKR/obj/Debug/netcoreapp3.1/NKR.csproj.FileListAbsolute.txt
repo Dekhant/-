@@ -1,0 +1,13 @@
+C:\Users\sasha\source\repos\NKR\bin\Debug\netcoreapp3.1\NKR.exe
+C:\Users\sasha\source\repos\NKR\bin\Debug\netcoreapp3.1\NKR.deps.json
+C:\Users\sasha\source\repos\NKR\bin\Debug\netcoreapp3.1\NKR.runtimeconfig.json
+C:\Users\sasha\source\repos\NKR\bin\Debug\netcoreapp3.1\NKR.runtimeconfig.dev.json
+C:\Users\sasha\source\repos\NKR\bin\Debug\netcoreapp3.1\NKR.dll
+C:\Users\sasha\source\repos\NKR\bin\Debug\netcoreapp3.1\NKR.pdb
+C:\Users\sasha\source\repos\NKR\obj\Debug\netcoreapp3.1\NKR.csprojAssemblyReference.cache
+C:\Users\sasha\source\repos\NKR\obj\Debug\netcoreapp3.1\NKR.AssemblyInfoInputs.cache
+C:\Users\sasha\source\repos\NKR\obj\Debug\netcoreapp3.1\NKR.AssemblyInfo.cs
+C:\Users\sasha\source\repos\NKR\obj\Debug\netcoreapp3.1\NKR.dll
+C:\Users\sasha\source\repos\NKR\obj\Debug\netcoreapp3.1\NKR.pdb
+C:\Users\sasha\source\repos\NKR\obj\Debug\netcoreapp3.1\NKR.genruntimeconfig.cache
+C:\Users\sasha\source\repos\NKR\obj\Debug\netcoreapp3.1\NKR.csproj.CoreCompileInputs.cache

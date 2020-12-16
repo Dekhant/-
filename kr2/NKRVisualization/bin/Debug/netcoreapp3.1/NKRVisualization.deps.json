@@ -1,0 +1,89 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "NKRVisualization/1.0.0": {
+        "dependencies": {
+          "AutomaticGraphLayout": "1.1.9",
+          "AutomaticGraphLayout.GraphViewerGDI": "1.1.9",
+          "NKR": "1.0.0"
+        },
+        "runtime": {
+          "NKRVisualization.dll": {}
+        }
+      },
+      "AutomaticGraphLayout/1.1.9": {
+        "runtime": {
+          "lib/netstandard2.0/AutomaticGraphLayout.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AutomaticGraphLayout.Drawing/1.1.9": {
+        "dependencies": {
+          "AutomaticGraphLayout": "1.1.9"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutomaticGraphLayout.Drawing.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "AutomaticGraphLayout.GraphViewerGDI/1.1.9": {
+        "dependencies": {
+          "AutomaticGraphLayout.Drawing": "1.1.9"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Msagl.GraphViewerGdi.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "NKR/1.0.0": {
+        "runtime": {
+          "NKR.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NKRVisualization/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AutomaticGraphLayout/1.1.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cq5I0BMqZB+yOZd3BC4OVUY8r9ITe2Y1NbvNwLl0Zkun6MEuaa5nYpXwMst/tuevzmHfw7qo1W/KE1MbWZ+e+w==",
+      "path": "automaticgraphlayout/1.1.9",
+      "hashPath": "automaticgraphlayout.1.1.9.nupkg.sha512"
+    },
+    "AutomaticGraphLayout.Drawing/1.1.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jvghlTjhV3gwJxmjxg55YlMKJUYxrde7FReGn9BgIubGb37AcMzNCG0GWAJfULjRfoMQtyz/pgI9JXcCpRXo1A==",
+      "path": "automaticgraphlayout.drawing/1.1.9",
+      "hashPath": "automaticgraphlayout.drawing.1.1.9.nupkg.sha512"
+    },
+    "AutomaticGraphLayout.GraphViewerGDI/1.1.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+Z7rm98dIaqQwq/WJVuVdWYaV3ehkhnMq9H4Bh+cn2O4I9EVE4xSZ2lCz0jKiGNj5vDL8gLMnuRiTXK5v3+QMw==",
+      "path": "automaticgraphlayout.graphviewergdi/1.1.9",
+      "hashPath": "automaticgraphlayout.graphviewergdi.1.1.9.nupkg.sha512"
+    },
+    "NKR/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

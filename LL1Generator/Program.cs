@@ -7,8 +7,13 @@ namespace LL1Generator
     {
         static void Main()
         {
-            var rulesStream = File.OpenRead("rules.txt");
-            Console.WriteLine("Hello World!");
+            var rulesStream = File.OpenRead("../../../input.txt");
+            var rules = Parser.ParseInput(rulesStream);
+            var RemovedRecursion = ParsedRuleProcessor.RemoveLeftRecursion(rules);
+            foreach(var rule in RemovedRecursion)
+            {
+                Console.WriteLine(rule);
+            }
         }
     }
 }

@@ -6,22 +6,23 @@ namespace LL1Generator
 {
     public static class LeftRecursionRemover
     {
-        public static IEnumerable<Rule> RemoveLeftRecursion(RuleList rules)
+        public static RuleList RemoveLeftRecursion(RuleList ruleList)
         {
             var newRuleList = new List<Rule>();
-            foreach (var nonTerm in rules.NonTerminals)
+            var nonTerminals = ruleList.NonTerminals;
+            foreach (var nonTerm in nonTerminals)
             {
                 var commonRules = new List<Rule>();
                 var leftRecursionRules = new List<Rule>();
-                var freeLetter = rules.Alphabet[0];
-                foreach (var rule in rules.Rules.Where(x => x.NonTerminal == nonTerm))
+                var freeLetter = ruleList.Alphabet[0];
+                foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == nonTerm))
                     if (rule.Items[0].Value == nonTerm)
                         leftRecursionRules.Add(rule);
                     else
                         commonRules.Add(rule);
                 if (leftRecursionRules.Any())
                 {
-                    rules.Alphabet.RemoveAt(0);
+                    ruleList.Alphabet.RemoveAt(0);
                     foreach (var commonRule in commonRules)
                     {
                         commonRule.Items.Add(new RuleItem(freeLetter, false));
@@ -50,7 +51,7 @@ namespace LL1Generator
                 }
             }
 
-            return newRuleList;
+            return new RuleList(nonTerminals, newRuleList);
         }
     }
 }

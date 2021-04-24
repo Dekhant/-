@@ -28,7 +28,7 @@ namespace LL1Generator
                     .Select(x => new RuleItem(x, !nonTerminals.Contains(x)))
                     .ToList()
             }).ToList();
-            
+
             var alphabet = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => ((char) i).ToString()).ToList();
             foreach (var nonTerminal in nonTerminals.ToList()) alphabet.Remove(nonTerminal);
 

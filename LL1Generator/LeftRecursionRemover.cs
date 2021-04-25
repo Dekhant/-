@@ -10,6 +10,7 @@ namespace LL1Generator
         {
             var newRuleList = new List<Rule>();
             var nonTerminals = ruleList.NonTerminals;
+            var nonTermsToAdd = new HashSet<string>();
             foreach (var nonTerm in nonTerminals)
             {
                 var commonRules = new List<Rule>();
@@ -22,6 +23,7 @@ namespace LL1Generator
                         commonRules.Add(rule);
                 if (leftRecursionRules.Any())
                 {
+                    nonTermsToAdd.Add(freeLetter);
                     ruleList.Alphabet.RemoveAt(0);
                     foreach (var commonRule in commonRules)
                     {
@@ -50,7 +52,7 @@ namespace LL1Generator
                     newRuleList.AddRange(commonRules);
                 }
             }
-
+            ruleList.NonTerminals.UnionWith(nonTermsToAdd);
             return new RuleList(nonTerminals, newRuleList);
         }
     }

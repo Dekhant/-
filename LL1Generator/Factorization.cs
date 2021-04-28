@@ -7,9 +7,11 @@ namespace LL1Generator
 {
     public static class Factorization
     {
-        public static int GetLongestCommonPrefix(List<Rule> rules)
+        public static List<Rule> GetLongestCommonPrefix(List<Rule> rules, ref List<string> alphabet, ref bool didChange, ref List<string> nonTermsToAdd)
         {
             List<List<Rule>> factorContainer = new List<List<Rule>>();
+            HashSet<List<RuleItem>> prefixes = new HashSet<List<RuleItem>>();
+            var newRules = new List<Rule>();
             while (rules.Any())
             {
                 var commonRulesList = new List<Rule>();
@@ -28,11 +30,19 @@ namespace LL1Generator
                 {
                     commonRulesList.Add(rules[0]);
                 }
+                else
+                {
+                    newRules.Add(rules[0]);
+                }
                 rules.RemoveAt(0);
                 if(commonRulesList.Any())
                 {
                     factorContainer.Add(commonRulesList);
                 }
+            }
+            if(factorContainer.Any())
+            {
+                didChange = true;
             }
             foreach (var factorContainerItem in factorContainer)
             {
@@ -56,24 +66,72 @@ namespace LL1Generator
                         maxRuleCount = maxCount;
                     }
                 }
-                Console.WriteLine(maxRuleCount);
-                
+                var rule = new Rule();
+                rule.Items = new List<RuleItem>();
+                string freeLetter = alphabet[0];
+                for (int j = 0; j < maxRuleCount; j++)
+                {
+                    rule.Items.Add(new RuleItem(factorContainerItem[0].Items[j].Value, factorContainerItem[0].Items[j].IsTerminal));
+                }
+                rule.NonTerminal = factorContainerItem[0].NonTerminal;
+                rule.Items.Add(new RuleItem(freeLetter, false));
+                newRules.Add(rule);
+                foreach (var factorItem in factorContainerItem)
+                {
+                    var factorRule = new Rule();
+                    factorRule.Items = new List<RuleItem>();
+                    if(factorItem.Items.Count == maxRuleCount)
+                    {
+                        factorRule.Items.Add(new RuleItem(Constants.EmptySymbol, true));
+                    }
+                    for (int j = maxRuleCount; j < factorItem.Items.Count; j++)
+                    {
+                        factorRule.Items.Add(new RuleItem(factorItem.Items[j].Value, factorItem.Items[j].IsTerminal));
+                    }
+                    factorRule.NonTerminal = freeLetter;
+                    newRules.Add(factorRule);
+                }
+                alphabet.RemoveAt(0);
+                nonTermsToAdd.Add(freeLetter);
             }
-            return 1;
-        }
+            return newRules;
 
+        }
+        
         public static RuleList RemoveFactorization(RuleList ruleList)
         {
-            foreach (var nonTerm in ruleList.NonTerminals)
+            bool didChange = true;
+            while (didChange)
             {
-                List<Rule> rulesToPrefixCheck = new List<Rule>();
-
-                foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == nonTerm))
+                didChange = false;
+                var nonTermsToAdd = new List<string>();
+                foreach (var nonTerm in ruleList.NonTerminals.ToList())
                 {
-                    rulesToPrefixCheck.Add(rule);
-                }
+                    var alphabet = ruleList.Alphabet;
+                    List<Rule> rulesToPrefixCheck = new List<Rule>();
 
-                int a = GetLongestCommonPrefix(rulesToPrefixCheck);
+                    foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == nonTerm))
+                    {
+                        rulesToPrefixCheck.Add(rule);
+                    }
+
+                    List<Rule> factorizatedRules = GetLongestCommonPrefix(rulesToPrefixCheck, ref alphabet, ref didChange, ref nonTermsToAdd);
+                    ruleList.Alphabet = alphabet;
+
+                    foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == nonTerm).ToList())
+                    {
+                        ruleList.Rules.Remove(rule);
+                    }
+                    foreach (var factorizatedRule in factorizatedRules)
+                    {
+                        ruleList.Rules.Add(factorizatedRule);
+                    }
+                    foreach (var item in nonTermsToAdd)
+                    {
+                        ruleList.NonTerminals.Add(item);
+                    }
+                }
+                
             }
 
             return ruleList;

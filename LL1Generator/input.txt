@@ -1,1 +1,3 @@
-A ->  n b c a | a s c r f C | a s c r f B | a s c r N | b b c A
+F -> M1 $
+M1 -> f m M1 | f B | a B | a d | f m
+B -> B a | B b | c | e

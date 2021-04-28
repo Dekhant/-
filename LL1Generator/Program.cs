@@ -8,10 +8,10 @@ namespace LL1Generator
         private static void Main()
         {
             var parsedRules = Parser.ParseInput(File.OpenRead("../../../input.txt"));
-            var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(parsedRules);
-            var factorizedRules = Factorization.RemoveFactorization(removedRecursionRules);
-            // AMOGUS ඞ
-            foreach (var rule in factorizedRules.Rules) Console.WriteLine(rule);
+            
+            var factorizedRules = Factorization.RemoveFactorization(parsedRules);
+            var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
+            foreach (var rule in removedRecursionRules.Rules) Console.WriteLine(rule);
         }
     }
 }

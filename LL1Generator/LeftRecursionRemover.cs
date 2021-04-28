@@ -27,17 +27,22 @@ namespace LL1Generator
                     ruleList.Alphabet.RemoveAt(0);
                     foreach (var commonRule in commonRules)
                     {
+                        if (commonRule.Items.Count == 1 && commonRule.Items[0].Value == Constants.EmptySymbol)
+                        {
+                            commonRule.Items.RemoveAt(0);
+                        }
                         commonRule.Items.Add(new RuleItem(freeLetter, false));
                         newRuleList.Add(commonRule);
                     }
 
                     foreach (var leftRecursionRule in leftRecursionRules)
                     {
-                        leftRecursionRule.Items.Skip(1).ToList().Add(new RuleItem(freeLetter, false));
+                        var leftRecursionItems = leftRecursionRule.Items.Skip(1).ToList();
+                        leftRecursionItems.Add(new RuleItem(freeLetter, false));
                         newRuleList.Add(new Rule
                         {
                             NonTerminal = freeLetter,
-                            Items = leftRecursionRule.Items
+                            Items = leftRecursionItems
                         });
                     }
 

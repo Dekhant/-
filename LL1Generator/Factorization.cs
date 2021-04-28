@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LL1Generator.Entities;
 
@@ -53,6 +52,7 @@ namespace LL1Generator
                         {
                             break;
                         }
+
                     if (maxCount < maxRuleCount) maxRuleCount = maxCount;
                 }
 
@@ -70,10 +70,9 @@ namespace LL1Generator
                     if (factorItem.Items.Count == maxRuleCount)
                         factorRule.Items.Add(new RuleItem(Constants.EmptySymbol, true));
                     else
-                    {
                         for (var j = maxRuleCount; j < factorItem.Items.Count; j++)
-                            factorRule.Items.Add(new RuleItem(factorItem.Items[j].Value, factorItem.Items[j].IsTerminal));
-                    }
+                            factorRule.Items.Add(
+                                new RuleItem(factorItem.Items[j].Value, factorItem.Items[j].IsTerminal));
                     factorRule.NonTerminal = freeLetter;
                     newRules.Add(factorRule);
                 }

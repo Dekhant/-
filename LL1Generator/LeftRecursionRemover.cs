@@ -28,16 +28,14 @@ namespace LL1Generator
                     foreach (var commonRule in commonRules)
                     {
                         if (commonRule.Items.Count == 1 && commonRule.Items[0].Value == Constants.EmptySymbol)
-                        {
                             commonRule.Items.RemoveAt(0);
-                        }
                         commonRule.Items.Add(new RuleItem(freeLetter, false));
                         newRuleList.Add(commonRule);
                     }
 
-                    foreach (var leftRecursionRule in leftRecursionRules)
+                    foreach (var leftRecursionItems in leftRecursionRules.Select(leftRecursionRule =>
+                        leftRecursionRule.Items.Skip(1).ToList()))
                     {
-                        var leftRecursionItems = leftRecursionRule.Items.Skip(1).ToList();
                         leftRecursionItems.Add(new RuleItem(freeLetter, false));
                         newRuleList.Add(new Rule
                         {

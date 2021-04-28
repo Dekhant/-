@@ -4,9 +4,9 @@ namespace LL1Generator.Entities
 {
     public class RuleList
     {
+        public readonly HashSet<string> NonTerminals;
         public readonly List<Rule> Rules;
         public List<string> Alphabet = new();
-        public readonly HashSet<string> NonTerminals;
 
         public RuleList(HashSet<string> nonTerminals, List<Rule> rules)
         {

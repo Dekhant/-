@@ -52,8 +52,10 @@ namespace LL1Generator
                     newRuleList.AddRange(commonRules);
                 }
             }
+
             ruleList.NonTerminals.UnionWith(nonTermsToAdd);
-            return new RuleList(nonTerminals, newRuleList) { 
+            return new RuleList(nonTerminals, newRuleList)
+            {
                 Alphabet = ruleList.Alphabet
             };
         }

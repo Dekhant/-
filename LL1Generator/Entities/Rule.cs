@@ -6,7 +6,7 @@ namespace LL1Generator.Entities
     public class Rule
     {
         public string NonTerminal { get; set; }
-        public List<RuleItem> Items { get; set; }
+        public List<RuleItem> Items { get; init; }
 
         public override string ToString()
         {

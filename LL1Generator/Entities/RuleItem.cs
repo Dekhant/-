@@ -5,10 +5,15 @@
         public readonly bool IsTerminal;
         public readonly string Value;
 
-        public RuleItem(string Value, bool IsTerminal)
+        public RuleItem(string value, bool isTerminal)
         {
-            this.Value = Value;
-            this.IsTerminal = IsTerminal;
+            Value = value;
+            IsTerminal = isTerminal;
+        }
+
+        public override string ToString()
+        {
+            return $"{Value} | {(IsTerminal ? "1" : "0")}";
         }
     }
 }

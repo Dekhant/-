@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace LL1Generator
@@ -7,6 +7,7 @@ namespace LL1Generator
     {
         private static void Main()
         {
+            // AMOGUS ඞ
             var parsedRules = Parser.ParseInput(File.OpenRead("../../../input.txt"));
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);

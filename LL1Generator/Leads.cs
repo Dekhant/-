@@ -7,6 +7,46 @@ namespace LL1Generator
 {
     public static class Leads
     {
+        static bool isLLgram(ref List<List<RuleItem>> leads, ref RuleList ruleList)
+        {
+            for(int i = 0; i < leads.Count; i++)
+            {
+                for(int j = 0; j < leads.Count; j++)
+                {
+                    if(i == j)
+                    {
+                        break;
+                    }
+                    if(leads[i].Count == leads[j].Count)
+                    {
+                        string l1 = "";
+                        string r1 = "";
+                        string l2 = "";
+                        string r2 = "";
+                        for (int n = 0; n < leads[i].Count; n++)
+                        {
+                            l1 += leads[i][n].Value;
+                            l2 += leads[j][n].Value;
+                        }
+                        for (int n = 0; n < ruleList.Rules[i].Items.Count; n++)
+                        {
+                            r1 += ruleList.Rules[i].Items[n].Value;
+                        }
+                        for (int n = 0; n < ruleList.Rules[j].Items.Count; n++)
+                        {
+                            r2 += ruleList.Rules[j].Items[n].Value;
+                        }
+                        if (l1 == l2 && r1 == r2)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
         private static void FindUpRules(RuleList ruleList, string nonTerm, ref List<List<RuleItem>> leads)
         {
             foreach(var rule in ruleList.Rules)
@@ -74,6 +114,10 @@ namespace LL1Generator
                         }
                     }
                 }
+            }
+            if(!isLLgram(ref leads, ref ruleList))
+            {
+                return null;
             }
             return leads;
         }

@@ -12,6 +12,7 @@ namespace LL1Generator
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
             var leads = Leads.FindLeads(removedRecursionRules);
+            TableCreator.CreateTable(removedRecursionRules, leads);
             foreach (var rule in removedRecursionRules.Rules) Console.WriteLine(rule);
         }
     }

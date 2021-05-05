@@ -12,12 +12,5 @@ namespace LL1Generator.Entities
         public bool IsShift { get; init; }
         public bool MoveToStack { get; init; }
         public bool IsEnd { get; init; }
-
-        public override string ToString()
-        {
-            return $"Id: {Id}, NonTerm: {NonTerminal}, Firsts: {string.Join(", ", FirstsSet)}, " +
-                   $"Goto: {(GoTo == null ? "NULL" : GoTo)}, Err: {IsError}, " +
-                   $"Shift: {IsShift}, Stack: {MoveToStack}, End: {IsEnd}";
-        }
     }
 }

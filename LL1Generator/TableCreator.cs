@@ -85,8 +85,10 @@ namespace LL1Generator
             return table;
         }
 
-        private static void InitStyle(ref Worksheet sheet, Workbook wbToStream)
+        private static Worksheet InitSheet(Workbook wbToStream)
         {
+            Worksheet sheet = wbToStream.Worksheets[0];
+
             sheet.Name = "Test";
 
             CellStyle style = wbToStream.Styles.Add("newStyle");
@@ -106,13 +108,14 @@ namespace LL1Generator
             sheet.Range["F1"].Text = "IsError";
             sheet.Range["G1"].Text = "MoveToStack";
             sheet.Range["H1"].Text = "IsEnd";
+
+            return sheet;
         }
 
         public static void ExportTable(List<TableRule> table)
         {
             Workbook wbToStream = new Workbook();
-            Worksheet sheet = wbToStream.Worksheets[0];
-            InitStyle(ref sheet, wbToStream);
+            Worksheet sheet = InitSheet(wbToStream);
             for (var i = 0; i < table.Count; i++)
             {
                 sheet.Range[$"A{i + 2}"].NumberValue = table[i].Id;

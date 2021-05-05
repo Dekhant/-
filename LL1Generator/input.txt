@@ -1,8 +1,4 @@
 S -> A B $
-<<<<<<< Updated upstream
-A -> B
-=======
 A -> d B
->>>>>>> Stashed changes
 A -> b
 B -> b

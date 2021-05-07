@@ -6,9 +6,10 @@ namespace LL1Generator.Entities
     {
         public int Id { get; init; }
         public string NonTerminal { get; init; }
-        public List<RuleItem> FirstsSet { get; set; }
+        // Классно придумал
+        public List<RuleItem> FirstsSet { get; init; }
         public HashSet<string> DirSet { get; set; }
-        public int? GoTo { get; set; }
+        public int? GoTo { get; init; }
         public bool IsError { get; set; }
         public bool IsShift { get; init; }
         public bool MoveToStack { get; init; }

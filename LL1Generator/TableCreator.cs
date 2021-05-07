@@ -26,87 +26,74 @@ namespace LL1Generator
             }
 
             foreach (var rule in ruleList.Rules)
+            foreach (var item in rule.Items)
             {
-                foreach (var item in rule.Items)
+                var lead = new List<RuleItem>();
+                if (item.IsTerminal && item.Value != Constants.EmptySymbol)
                 {
-                    var lead = new List<RuleItem>();
-                    if (item.IsTerminal && item.Value != Constants.EmptySymbol)
+                    lead.Add(item);
+                    if (item.Value != Constants.EndSymbol)
                     {
-                        lead.Add(item);
-                        bool shift;
-                        if (item.Value != Constants.EndSymbol)
-                        {
-                            if (rule.Items.IndexOf(item) == rule.Items.Count - 1)
-                            {
-                                shift = true;
-                                goTo = null;
-                            }
-                            else
-                            {
-                                shift = true;
-                                goTo = id + 1;
-                            }
-                        }
-                        else
-                        {
-                            shift = true;
+                        if (rule.Items.IndexOf(item) == rule.Items.Count - 1)
                             goTo = null;
-                        }
-                        var isEnd = item.Value == Constants.EndSymbol;
-                        table.Add(new TableRule
-                        {
-                            Id = id,
-                            NonTerminal = item.Value,
-                            IsError = true,
-                            GoTo = goTo,
-                            FirstsSet = lead,
-                            IsShift = shift,
-                            MoveToStack = false,
-                            IsEnd = isEnd
-                        });
+                        else
+                            goTo = id + 1;
                     }
                     else
                     {
-                        List<Rule> nonTerms = new List<Rule>();
-                        if (!item.IsTerminal)
-                        {
-                            nonTerms = ruleList.Rules.Where(x => x.NonTerminal == item.Value).ToList();
-                            goTo = ruleList.Rules.IndexOf(nonTerms.First());
-                        }
-                        else
-                        {
-                            nonTerms.Add(ruleList.Rules[ruleList.Rules.IndexOf(rule)]);
-                            goTo = null;
-                        }
-                        foreach (var index in nonTerms.Select(nonTerm => ruleList.Rules.IndexOf(nonTerm)))
-                        {
-                            lead.AddRange(leads[index]);
-                        }
-
-                        var stack = rule.Items.IndexOf(item) != rule.Items.Count - 1;
-                        table.Add(new TableRule
-                        {
-                            Id = id,
-                            NonTerminal = item.Value,
-                            IsError = true,
-                            GoTo = goTo,
-                            FirstsSet = lead,
-                            IsShift = false,
-                            MoveToStack = stack
-                        });
+                        goTo = null;
                     }
 
-                    id++;
+                    var isEnd = item.Value == Constants.EndSymbol;
+                    table.Add(new TableRule
+                    {
+                        Id = id,
+                        NonTerminal = item.Value,
+                        IsError = true,
+                        GoTo = goTo,
+                        FirstsSet = lead,
+                        IsShift = true,
+                        MoveToStack = false,
+                        IsEnd = isEnd
+                    });
                 }
+                else
+                {
+                    var nonTerms = new List<Rule>();
+                    if (!item.IsTerminal)
+                    {
+                        nonTerms = ruleList.Rules.Where(x => x.NonTerminal == item.Value).ToList();
+                        goTo = ruleList.Rules.IndexOf(nonTerms.First());
+                    }
+                    else
+                    {
+                        nonTerms.Add(ruleList.Rules[ruleList.Rules.IndexOf(rule)]);
+                        goTo = null;
+                    }
+
+                    foreach (var index in nonTerms.Select(nonTerm => ruleList.Rules.IndexOf(nonTerm)))
+                        lead.AddRange(leads[index]);
+
+                    var stack = rule.Items.IndexOf(item) != rule.Items.Count - 1;
+                    table.Add(new TableRule
+                    {
+                        Id = id,
+                        NonTerminal = item.Value,
+                        IsError = true,
+                        GoTo = goTo,
+                        FirstsSet = lead,
+                        IsShift = false,
+                        MoveToStack = stack
+                    });
+                }
+
+                id++;
             }
 
-            foreach(var row in table)
+            foreach (var row in table)
             {
                 var ss = new HashSet<string>();
-                foreach(var tabledir in row.FirstsSet)
-                {
-                    ss.Add(tabledir.Value);
-                }
+                foreach (var tableDir in row.FirstsSet) ss.Add(tableDir.Value);
                 row.DirSet = ss;
             }
 
@@ -148,9 +135,7 @@ namespace LL1Generator
             {
                 sheet.Range[$"A{i + 2}"].NumberValue = table[i].Id + 1;
                 sheet.Range[$"B{i + 2}"].Text = table[i].NonTerminal;
-                // var firsts = table[i].FirstsSet.Aggregate(string.Empty, (current, lead) => current + lead.Value);
-                var firsts = string.Empty;
-                foreach (var lead in table[i].FirstsSet) firsts += lead.Value;
+                var firsts = table[i].FirstsSet.Aggregate(string.Empty, (current, lead) => current + lead.Value);
                 sheet.Range[$"C{i + 2}"].Text = firsts;
                 if (table[i].GoTo != null)
                     sheet.Range[$"D{i + 2}"].NumberValue = (double) table[i].GoTo;

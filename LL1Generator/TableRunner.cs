@@ -1,24 +1,22 @@
-﻿using LL1Generator.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LL1Generator.Entities;
 
 namespace LL1Generator
 {
-    public class TableRunner
+    public static class TableRunner
     {
         public static string[] ParseSentence(Stream input)
         {
             using var sr = new StreamReader(input);
-            string line = sr.ReadLine();
+            var line = sr.ReadLine();
 
-            return line.Split(new char[] { ' ' });
+            return line?.Split(new[] {' '});
         }
-        public static ImmutableList<int> Analyze(string[] input, List<TableRule> table)
+
+        public static List<int> Analyze(string[] input, List<TableRule> table)
         {
             var stack = new Stack<int>();
             var inputQ = new Queue<string>(input);
@@ -72,7 +70,7 @@ namespace LL1Generator
                                             $"Stack: [{string.Join(", ", stack)}], InputQ: [{string.Join(", ", inputQ)}], TableItem: {index}\nHistory: [{string.Join(", ", history)}]");
             }
 
-            return history.ToImmutableList();
+            return history.ToList();
         }
     }
 }

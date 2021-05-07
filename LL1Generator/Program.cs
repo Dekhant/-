@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LL1Generator.Entities;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace LL1Generator
@@ -13,7 +15,10 @@ namespace LL1Generator
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
             var leads = Leads.FindLeads(removedRecursionRules);
             foreach (var rule in removedRecursionRules.Rules) Console.WriteLine(rule);
-            TableCreator.ExportTable(TableCreator.CreateTable(removedRecursionRules, leads));
+            List < TableRule > table = TableCreator.CreateTable(removedRecursionRules, leads);
+            TableCreator.ExportTable(table);
+            var input = TableRunner.ParseSentence(File.OpenRead("../../../sentence.txt"));
+            TableRunner.Analyze(input, table);
         }
     }
 }

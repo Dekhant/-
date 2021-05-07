@@ -71,6 +71,16 @@ namespace LL1Generator
                 id++;
             }
 
+            foreach(var row in table)
+            {
+                var ss = new HashSet<string>();
+                foreach(var tabledir in row.FirstsSet)
+                {
+                    ss.Add(tabledir.Value);
+                }
+                row.DirSet = ss;
+            }
+
             return table;
         }
 

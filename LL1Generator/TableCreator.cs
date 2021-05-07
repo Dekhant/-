@@ -117,7 +117,7 @@ namespace LL1Generator
         {
             var sheet = wbToStream.Worksheets[0];
 
-            sheet.Name = "Test";
+            sheet.Name = "Output";
 
             var style = wbToStream.Styles.Add("newStyle");
             style.Font.Size = 11;
@@ -146,7 +146,7 @@ namespace LL1Generator
             var sheet = InitSheet(wbToStream);
             for (var i = 0; i < table.Count; i++)
             {
-                sheet.Range[$"A{i + 2}"].NumberValue = table[i].Id;
+                sheet.Range[$"A{i + 2}"].NumberValue = table[i].Id + 1;
                 sheet.Range[$"B{i + 2}"].Text = table[i].NonTerminal;
                 // var firsts = table[i].FirstsSet.Aggregate(string.Empty, (current, lead) => current + lead.Value);
                 var firsts = string.Empty;

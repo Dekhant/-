@@ -22,13 +22,13 @@ namespace LL1Generator
         {
             var stack = new Stack<int>();
             var inputQ = new Queue<string>(input);
-            var index = 1;
+            var index = 0;
             var history = new List<int>();
             var inItem = inputQ.Peek();
             while (true)
             {
                 history.Add(index);
-                var tableItem = table[index - 1];
+                var tableItem = table[index];
                 if (!tableItem.DirSet.Contains(inItem))
                 {
                     if (tableItem.IsError)

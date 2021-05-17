@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LL1Generator.Entities;
 
@@ -7,118 +6,74 @@ namespace LL1Generator
 {
     public static class Leads
     {
-        static bool isLLgram(ref List<List<RuleItem>> leads, ref RuleList ruleList)
+        private static void FindUpRules(RuleList ruleList, string nonTerm, ref List<List<RuleItem>> leads,
+            ref HashSet<Rule> usedNonTerms)
         {
-            for(int i = 0; i < leads.Count; i++)
+            foreach (var rule in ruleList.Rules)
             {
-                for(int j = 0; j < leads.Count; j++)
-                {
-                    if(i == j)
+                if (usedNonTerms.Contains(rule)) continue;
+                foreach (var item in rule.Items.Where(item => item.Value == nonTerm && rule.NonTerminal != nonTerm))
+                    if (rule.Items.IndexOf(item) == rule.Items.Count - 1)
                     {
-                        break;
+                        usedNonTerms.Add(rule);
+                        FindUpRules(ruleList, rule.NonTerminal, ref leads, ref usedNonTerms);
                     }
-                    if(leads[i].Count == leads[j].Count)
+                    else
                     {
-                        string l1 = "";
-                        string r1 = "";
-                        string l2 = "";
-                        string r2 = "";
-                        for (int n = 0; n < leads[i].Count; n++)
-                        {
-                            l1 += leads[i][n].Value;
-                            l2 += leads[j][n].Value;
-                        }
-                        for (int n = 0; n < ruleList.Rules[i].Items.Count; n++)
-                        {
-                            r1 += ruleList.Rules[i].Items[n].Value;
-                        }
-                        for (int n = 0; n < ruleList.Rules[j].Items.Count; n++)
-                        {
-                            r2 += ruleList.Rules[j].Items[n].Value;
-                        }
-                        if (l1 == l2 && r1 == r2)
-                        {
-                            return false;
-                        }
+                        var lead = new List<RuleItem> {rule.Items[rule.Items.IndexOf(item) + 1]};
+                        leads.Add(lead);
                     }
-                }
-            }
-
-            return true;
-        }
-
-        private static void FindUpRules(RuleList ruleList, string nonTerm, ref List<List<RuleItem>> leads)
-        {
-            foreach(var rule in ruleList.Rules)
-            {
-                foreach(var item in rule.Items)
-                {
-                    if(item.Value == nonTerm)
-                    {
-                        if(rule.Items.IndexOf(item) == (rule.Items.Count - 1))
-                        {
-                            FindUpRules(ruleList, rule.NonTerminal, ref leads);
-                        }
-                        else
-                        {
-                            var lead = new List<RuleItem>();
-                            lead.Add(rule.Items[rule.Items.IndexOf(item) + 1]);
-                            leads.Add(lead);
-                        }
-                    }
-                }
             }
         }
+
         public static List<List<RuleItem>> FindLeads(RuleList ruleList)
         {
             var leads = new List<List<RuleItem>>();
             foreach (var rule in ruleList.Rules)
-            {
-                if(rule.Items[0].Value == Constants.EmptySymbol)
+                if (rule.Items[0].Value == Constants.EmptySymbol)
                 {
-                    FindUpRules(ruleList, rule.NonTerminal, ref leads);
+                    var usedNonTerms = new HashSet<Rule>();
+                    FindUpRules(ruleList, rule.NonTerminal, ref leads, ref usedNonTerms);
                 }
                 else
                 {
-                    var lead = new List<RuleItem>();
-                    lead.Add(rule.Items[0]);
+                    var lead = new List<RuleItem> {rule.Items[0]};
                     leads.Add(lead);
                 }
-            }
-            bool foundNonTerm = true;
+
+            var foundNonTerm = true;
             while (foundNonTerm)
             {
-                var uniqueEnterances = new HashSet<List<RuleItem>>();
                 foundNonTerm = false;
-                foreach (var lead in leads)
-                {          
-                    foreach (var leadSymbol in lead.ToList())
+                foreach (var nonTerm in ruleList.NonTerminals)
+                {
+                    var uniqueEntrances = new HashSet<List<RuleItem>>();
+                    foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == nonTerm))
                     {
-                        if (!leadSymbol.IsTerminal)
+                        var index = ruleList.Rules.IndexOf(rule);
+                        foreach (var leadSymbol in leads[index].ToList().Where(leadSymbol => !leadSymbol.IsTerminal))
                         {
                             foundNonTerm = true;
-                            foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == leadSymbol.Value))
+                            foreach (var leadRule in ruleList.Rules.Where(x => x.NonTerminal == leadSymbol.Value))
                             {
-                                int index = ruleList.Rules.IndexOf(rule);
-                                if (!uniqueEnterances.Contains(leads[index]))
+                                var leadRuleIndex = ruleList.Rules.IndexOf(leadRule);
+                                if (!uniqueEntrances.Contains(leads[leadRuleIndex]))
                                 {
-                                    uniqueEnterances.Add(leads[index]);   
-                                    lead.AddRange(leads[index]);
+                                    uniqueEntrances.Add(leads[leadRuleIndex]);
+                                    leads[index].AddRange(leads[leadRuleIndex]);
                                 }
                                 else
                                 {
                                     return null;
                                 }
                             }
-                            lead.RemoveAt(lead.IndexOf(leadSymbol));
+
+                            leads[index].RemoveAt(leads[index].IndexOf(leadSymbol));
                         }
                     }
                 }
             }
-            if(!isLLgram(ref leads, ref ruleList))
-            {
-                return null;
-            }
+
             return leads;
         }
     }

@@ -1,0 +1,8 @@
+F -> P1 $
+P1 -> P1 au P2
+P1 -> P2
+P2 -> P2 q P3
+P2 -> P3
+P3 -> uh-ti
+P3 -> ho P3
+P3 -> nu P1 i-nu

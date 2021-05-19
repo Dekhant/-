@@ -1,0 +1,10 @@
+F -> P1 $ / uh-ti, ho, nu
+P1 -> P2 A / uh-ti, ho, nu
+A -> au P2 A / au
+A -> & / $, i-nu
+P2 -> P3 B / uh-ti, ho, nu
+B -> q P3 B / q
+B -> & / au, $, i-nu
+P3 -> uh-ti / uh-ti
+P3 -> ho P3 / ho
+P3 -> nu P1 i-nu / nu

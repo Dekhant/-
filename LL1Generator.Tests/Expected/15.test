@@ -1,0 +1,12 @@
+P1 -> Day P2 Keshe $ / Day
+P1 -> P2 $ / Svobodu, Piastri, Nu
+P2 -> Svobodu A / Svobodu
+P2 -> P3 A / Piastri, Nu
+A -> Keshe P3 A / Keshe
+A -> & / Keshe, $
+P3 -> Piastri B / Piastri
+P3 -> Nu P4 Ti B / Nu
+B -> Kashi B / Kashi
+B -> & / Keshe, $
+P4 -> oh P1 ugass / oh
+P4 -> & / Ti

@@ -1,0 +1,7 @@
+F -> S $ / x
+S -> x B / x
+B -> A B / y
+B -> & / $, x, y
+A -> y C / y
+C -> S C / x
+C -> & / y, $, x

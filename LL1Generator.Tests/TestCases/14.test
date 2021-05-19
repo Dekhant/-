@@ -1,0 +1,6 @@
+F -> P1 $
+P1 -> oy P2 ay P3
+P2 -> nu
+P2 -> nu P2
+P3 -> ho P3 ho
+P3 -> uh-ti

@@ -1,0 +1,10 @@
+F -> function I ( I ) G end $ / function
+G -> I := E A / a
+A -> ; G / ;
+A -> & / end
+E -> I C / a
+C -> B C / *, +
+C -> & / ;, end
+B -> * I / *
+B -> + I / +
+I -> a / a

@@ -1,0 +1,3 @@
+S -> A B $
+A -> A a | f | b B d | A c
+B -> B b | с a

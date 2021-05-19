@@ -1,0 +1,12 @@
+S -> type F $ / type
+F -> I = T A / a, b, c
+A -> ; F / ;
+A -> & / $
+T -> int / int
+T -> record G end / record
+G -> I : T B / a, b, c
+B -> ; G / ;
+B -> & / end
+I -> a / a
+I -> b / b
+I -> c / c

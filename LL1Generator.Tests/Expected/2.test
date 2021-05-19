@@ -1,0 +1,10 @@
+F -> S $ / if, id, $, else
+S -> if A then S C / if
+S -> B / id, $, else
+C -> else S / else
+C -> & / $, else
+A -> id D / id
+D -> + A D / +
+D -> & / then, +, $, else
+B -> id = A / id
+B -> & / $, else

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LL1Generator.Entities;
 
@@ -11,8 +12,12 @@ namespace LL1Generator
         {
             foreach (var rule in ruleList.Rules)
             {
-                if (usedNonTerms.Contains(rule)) continue;
-                foreach (var item in rule.Items.Where(item => item.Value == nonTerm && rule.NonTerminal != nonTerm))
+                if (usedNonTerms.Contains(rule))
+                {
+                    continue;   
+                }
+                foreach (var item in rule.Items.Where(item => item.Value == nonTerm /*&& rule.NonTerminal != nonTerm*/))
+                {
                     if (rule.Items.IndexOf(item) == rule.Items.Count - 1)
                     {
                         usedNonTerms.Add(rule);
@@ -20,12 +25,15 @@ namespace LL1Generator
                     }
                     else
                     {
-                        var lead = new List<RuleItem> {rule.Items[rule.Items.IndexOf(item) + 1]};
-                        leads.Add(lead);
+                        if (!leads.Last().Contains(rule.Items[rule.Items.IndexOf(item) + 1]))
+                        {
+                            leads.Last().Add(rule.Items[rule.Items.IndexOf(item) + 1]);
+                        }
                     }
+                }
             }
         }
-
+        //ОТРЫЖКИНА(НЕХОРОШКОВА) ДОЧЬ ЕБАНОЙ ШЛЮХИ, КОТОРУЮ ЕБУТ НЕГРЫ ПО КД ВО ВСЕ ЩЕЛИ
         public static List<List<RuleItem>> FindLeads(RuleList ruleList)
         {
             var leads = new List<List<RuleItem>>();
@@ -33,7 +41,9 @@ namespace LL1Generator
                 if (rule.Items[0].Value == Constants.EmptySymbol)
                 {
                     var usedNonTerms = new HashSet<Rule>();
+                    leads.Add(new List<RuleItem>());
                     FindUpRules(ruleList, rule.NonTerminal, ref leads, ref usedNonTerms);
+                    usedNonTerms.Clear();
                 }
                 else
                 {
@@ -54,7 +64,7 @@ namespace LL1Generator
                         foreach (var leadSymbol in leads[index].ToList().Where(leadSymbol => !leadSymbol.IsTerminal))
                         {
                             foundNonTerm = true;
-                            foreach (var leadRule in ruleList.Rules.Where(x => x.NonTerminal == leadSymbol.Value))
+                            foreach (var leadRule in ruleList.Rules.Where(x => x.NonTerminal == leadSymbol.Value && x != rule))
                             {
                                 var leadRuleIndex = ruleList.Rules.IndexOf(leadRule);
                                 if (!uniqueEntrances.Contains(leads[leadRuleIndex]))
@@ -73,7 +83,7 @@ namespace LL1Generator
                     }
                 }
             }
-
+            Console.WriteLine();
             return leads;
         }
     }

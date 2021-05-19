@@ -1,4 +1,4 @@
-F -> function I ( I ) G end $
-G -> I := E | I := E ; G
-E -> E * I | E + I | I
-I -> a
+F -> S $
+S -> if A then S | if A then S else S | B
+A -> A + A | id 
+B -> id = A | &

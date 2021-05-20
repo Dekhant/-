@@ -7,50 +7,67 @@ namespace LL1Generator
 {
     public static class Leads
     {
-        private static void FindUpRules(RuleList ruleList, string nonTerm, ref List<List<RuleItem>> leads,
-            ref HashSet<Rule> usedNonTerms)
+        private struct Used
         {
-            foreach (var rule in ruleList.Rules)
+            public Used(Rule rule, int index)
             {
-                if (usedNonTerms.Contains(rule))
+                Rule = rule;
+                Index = index;
+            }
+            public Rule Rule { get; set; }
+            public int Index { get; set; }
+            public override string ToString() => $"({Rule}, {Index})";
+
+        }
+        private static List<RuleItem> FindUpRule(RuleList ruleList, RuleItem emptyItem, ref List<Used> usedRules)
+        {
+            var lead = new List<RuleItem>();
+            for(int i = 0; i < ruleList.Rules.Count; i++)
+            {
+                var item = ruleList.Rules[i].Items.Where(x => x.Value == emptyItem.Value).ToList();
+                if (item.Count != 0)
                 {
-                    continue;   
-                }
-                foreach (var item in rule.Items.Where(item => item.Value == nonTerm /*&& rule.NonTerminal != nonTerm*/))
-                {
-                    if (rule.Items.IndexOf(item) == rule.Items.Count - 1)
+                    for (int j = 0; j < item.Count; j++)
                     {
-                        usedNonTerms.Add(rule);
-                        FindUpRules(ruleList, rule.NonTerminal, ref leads, ref usedNonTerms);
-                    }
-                    else
-                    {
-                        if (!leads.Last().Contains(rule.Items[rule.Items.IndexOf(item) + 1]))
+                        int index = ruleList.Rules[i].Items.IndexOf(item[j]);
+                        if (!usedRules.Contains(new Used(ruleList.Rules[i], index)))
                         {
-                            leads.Last().Add(rule.Items[rule.Items.IndexOf(item) + 1]);
+                            if (index == ruleList.Rules[i].Items.Count - 1)
+                            {
+                                usedRules.Add(new Used(ruleList.Rules[i], index));
+                                emptyItem = new RuleItem(ruleList.Rules[i].NonTerminal, false);
+                                lead.AddRange(FindUpRule(ruleList, emptyItem, ref usedRules));
+                            }
+                            else
+                            {
+                                lead.Add(ruleList.Rules[i].Items[index + 1]);
+                            }
                         }
                     }
                 }
             }
+            return lead;
         }
-        //ОТРЫЖКИНА(НЕХОРОШКОВА) ДОЧЬ ЕБАНОЙ ШЛЮХИ, КОТОРУЮ ЕБУТ НЕГРЫ ПО КД ВО ВСЕ ЩЕЛИ
         public static List<List<RuleItem>> FindLeads(RuleList ruleList)
         {
-            var leads = new List<List<RuleItem>>();
-            foreach (var rule in ruleList.Rules)
-                if (rule.Items[0].Value == Constants.EmptySymbol)
+            var leads = new List<List<RuleItem>>(ruleList.Rules.Count);
+            for(int i = 0; i < ruleList.Rules.Count; i++)
+            {
+                leads.Add(new List<RuleItem>());
+                var rule = ruleList.Rules[i];
+                if(rule.Items[0].Value == Constants.EmptySymbol)
                 {
-                    var usedNonTerms = new HashSet<Rule>();
-                    leads.Add(new List<RuleItem>());
-                    FindUpRules(ruleList, rule.NonTerminal, ref leads, ref usedNonTerms);
-                    usedNonTerms.Clear();
+                    var emptyItem = new RuleItem(rule.NonTerminal, false);
+                    var usedRules = new List<Used>();
+                    var lead = FindUpRule(ruleList, emptyItem, ref usedRules).ToHashSet().ToList();
+                    leads[i].AddRange(lead);
+                    usedRules.Clear();
                 }
                 else
                 {
-                    var lead = new List<RuleItem> {rule.Items[0]};
-                    leads.Add(lead);
+                    leads[i].Add(rule.Items[0]);
                 }
-
+            }
             var foundNonTerm = true;
             while (foundNonTerm)
             {
@@ -83,8 +100,14 @@ namespace LL1Generator
                     }
                 }
             }
-            Console.WriteLine();
+            int j = 0;
+            foreach(var lead in leads.ToList())
+            {
+                leads[j] = lead.ToHashSet().ToList();
+                j++;
+            }
             return leads;
+
         }
     }
 }

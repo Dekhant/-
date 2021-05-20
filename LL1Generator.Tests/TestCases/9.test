@@ -1,2 +1,2 @@
 F -> S $
-S -> S a | S S | e
+S -> S a | S S | &

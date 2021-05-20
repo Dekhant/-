@@ -22,25 +22,25 @@ namespace LL1Generator
         private static List<RuleItem> FindUpRule(RuleList ruleList, RuleItem emptyItem, ref List<Used> usedRules)
         {
             var lead = new List<RuleItem>();
-            for(int i = 0; i < ruleList.Rules.Count; i++)
+            foreach(var rule in ruleList.Rules)
             {
-                var item = ruleList.Rules[i].Items.Where(x => x.Value == emptyItem.Value).ToList();
+                var item = rule.Items.Where(x => x.Value == emptyItem.Value).ToList();
                 if (item.Count != 0)
                 {
                     for (int j = 0; j < item.Count; j++)
                     {
-                        int index = ruleList.Rules[i].Items.IndexOf(item[j]);
-                        if (!usedRules.Contains(new Used(ruleList.Rules[i], index)))
+                        int index = rule.Items.IndexOf(item[j]);
+                        if (!usedRules.Contains(new Used(rule, index)))
                         {
-                            if (index == ruleList.Rules[i].Items.Count - 1)
+                            if (index == rule.Items.Count - 1)
                             {
-                                usedRules.Add(new Used(ruleList.Rules[i], index));
-                                emptyItem = new RuleItem(ruleList.Rules[i].NonTerminal, false);
-                                lead.AddRange(FindUpRule(ruleList, emptyItem, ref usedRules));
+                                usedRules.Add(new Used(rule, index));
+                                var newEmptyItem = new RuleItem(rule.NonTerminal, false);
+                                lead.AddRange(FindUpRule(ruleList, newEmptyItem, ref usedRules));
                             }
                             else
                             {
-                                lead.Add(ruleList.Rules[i].Items[index + 1]);
+                                lead.Add(rule.Items[index + 1]);
                             }
                         }
                     }

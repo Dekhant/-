@@ -22,8 +22,7 @@ namespace LL1Generator.Tests
             {
                 expected.Add(line);
             }
-            int govno = 5;
-            Assert.Equal(expected[govno], actual[govno]);
+            Assert.Equal(expected, actual);
 
         }
 
@@ -184,6 +183,44 @@ namespace LL1Generator.Tests
         {
             var expectedCase = new StreamReader("../../../Expected/10.test");
             var way = "../../../TestCases/10.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = p.checkTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void Test11()
+        {
+            var expectedCase = new StreamReader("../../../Expected/11.test");
+            var way = "../../../TestCases/11.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = p.checkTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void Test12()
+        {
+            var expectedCase = new StreamReader("../../../Expected/12.test");
+            var way = "../../../TestCases/12.test";
             var rules = new List<string>();
 
             var p = new Program();

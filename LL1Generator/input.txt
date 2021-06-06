@@ -1,3 +1,2 @@
 F -> S $
-S -> id = E | while E do S
-E -> E + E | id
+S -> S a | S S | &

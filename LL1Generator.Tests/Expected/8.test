@@ -1,10 +1,10 @@
 S -> A B $ / f, b
 A -> f D / f
 A -> b B d D / b
-D -> C D / a, c
+D -> C D / c, a
 D -> & / с
-C -> a / a
-C -> c / c
 B -> с a E / с
 E -> b E / b
 E -> & / $, d
+C -> c / c
+C -> a / a

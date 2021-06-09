@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLRGenerator", "SLRGenerator.csproj", "{650EE999-E8F9-4249-9E85-AEE8E5B15788}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{650EE999-E8F9-4249-9E85-AEE8E5B15788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650EE999-E8F9-4249-9E85-AEE8E5B15788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650EE999-E8F9-4249-9E85-AEE8E5B15788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650EE999-E8F9-4249-9E85-AEE8E5B15788}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

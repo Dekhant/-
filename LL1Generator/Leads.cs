@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using LL1Generator.Entities;
 
@@ -7,29 +6,16 @@ namespace LL1Generator
 {
     public static class Leads
     {
-        private struct Used
-        {
-            public Used(Rule rule, int index)
-            {
-                Rule = rule;
-                Index = index;
-            }
-            public Rule Rule { get; set; }
-            public int Index { get; set; }
-            public override string ToString() => $"({Rule}, {Index})";
-
-        }
-        private static List<RuleItem> FindUpRule(RuleList ruleList, RuleItem emptyItem, ref List<Used> usedRules)
+        private static IEnumerable<RuleItem> FindUpRule(RuleList ruleList, RuleItem emptyItem, ref List<Used> usedRules)
         {
             var lead = new List<RuleItem>();
-            foreach(var rule in ruleList.Rules)
+            foreach (var rule in ruleList.Rules)
             {
                 var item = rule.Items.Where(x => x.Value == emptyItem.Value).ToList();
                 if (item.Count != 0)
                 {
-                    for (int j = 0; j < item.Count; j++)
+                    foreach (var index in item.Select(t => rule.Items.IndexOf(t)))
                     {
-                        int index = rule.Items.IndexOf(item[j]);
                         if (!usedRules.Contains(new Used(rule, index)))
                         {
                             if (index == rule.Items.Count - 1)
@@ -46,16 +32,18 @@ namespace LL1Generator
                     }
                 }
             }
+
             return lead;
         }
+
         public static List<List<RuleItem>> FindLeads(RuleList ruleList)
         {
             var leads = new List<List<RuleItem>>(ruleList.Rules.Count);
-            for(int i = 0; i < ruleList.Rules.Count; i++)
+            for (var i = 0; i < ruleList.Rules.Count; i++)
             {
                 leads.Add(new List<RuleItem>());
                 var rule = ruleList.Rules[i];
-                if(rule.Items[0].Value == Constants.EmptySymbol)
+                if (rule.Items[0].Value == Constants.EmptySymbol)
                 {
                     var emptyItem = new RuleItem(rule.NonTerminal, false);
                     var usedRules = new List<Used>();
@@ -68,6 +56,7 @@ namespace LL1Generator
                     leads[i].Add(rule.Items[0]);
                 }
             }
+
             var foundNonTerm = true;
             while (foundNonTerm)
             {
@@ -81,7 +70,8 @@ namespace LL1Generator
                         foreach (var leadSymbol in leads[index].ToList().Where(leadSymbol => !leadSymbol.IsTerminal))
                         {
                             foundNonTerm = true;
-                            foreach (var leadRule in ruleList.Rules.Where(x => x.NonTerminal == leadSymbol.Value && x != rule))
+                            foreach (var leadRule in ruleList.Rules.Where(x =>
+                                x.NonTerminal == leadSymbol.Value && x != rule))
                             {
                                 var leadRuleIndex = ruleList.Rules.IndexOf(leadRule);
                                 if (!uniqueEntrances.Contains(leads[leadRuleIndex]))
@@ -100,14 +90,28 @@ namespace LL1Generator
                     }
                 }
             }
-            int j = 0;
-            foreach(var lead in leads.ToList())
+
+            var j = 0;
+            foreach (var lead in leads.ToList())
             {
                 leads[j] = lead.ToHashSet().ToList();
                 j++;
             }
-            return leads;
 
+            return leads;
+        }
+
+        private readonly struct Used
+        {
+            public Used(Rule rule, int index)
+            {
+                Rule = rule;
+                Index = index;
+            }
+
+            private Rule Rule { get; }
+            private int Index { get; }
+            public override string ToString() => $"({Rule}, {Index})";
         }
     }
 }

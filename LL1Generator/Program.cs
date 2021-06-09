@@ -1,6 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using LL1Generator.Entities;
 
 namespace LL1Generator
 {
@@ -8,7 +9,6 @@ namespace LL1Generator
     {
         public static void Main()
         {
-            // AMOGUS ඞ
             var parsedRules = Parser.ParseInput(File.OpenRead("../../../input.txt"));
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
@@ -26,35 +26,36 @@ namespace LL1Generator
                 Console.WriteLine(ex.Message);
                 return;
             }
+
             Console.WriteLine("Correct!");
         }
 
-        private string convertLead(List<LL1Generator.Entities.RuleItem> lead)
+        private static string ConvertLead(IReadOnlyList<RuleItem> lead)
         {
-            string leadline = "";
+            var leadLine = "";
 
-            for(var i = 0; i < lead.Count; i++)
+            for (var i = 0; i < lead.Count; i++)
             {
-                leadline += lead[i].Value;
-                if(lead.Count > 1 && i != lead.Count-1)
+                leadLine += lead[i].Value;
+                if (lead.Count > 1 && i != lead.Count - 1)
                 {
-                    leadline += ", ";
+                    leadLine += ", ";
                 }
             }
 
-            return leadline;
+            return leadLine;
         }
 
 
-        public List<string> checkTests(string way, List<string> rules)
+        public static List<string> CheckTests(string way, List<string> rules)
         {
             var parsedRules = Parser.ParseInput(File.OpenRead(way));
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
             var leads = Leads.FindLeads(removedRecursionRules);
-            for(var i = 0; i < removedRecursionRules.Rules.Count; i++)
+            for (var i = 0; i < removedRecursionRules.Rules.Count; i++)
             {
-                rules.Add(removedRecursionRules.Rules[i].ToString() + " / " + convertLead(leads[i]));
+                rules.Add(removedRecursionRules.Rules[i] + " / " + ConvertLead(leads[i]));
             }
 
             return rules;

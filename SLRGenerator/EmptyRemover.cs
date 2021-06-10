@@ -8,7 +8,7 @@ namespace SLRGenerator
     {
         private readonly List<Rule> _rules;
 
-        public EmptyRemover(List<Rule> rules)
+        public EmptyRemover(IEnumerable<Rule> rules)
         {
             _rules = rules.ToList();
         }
@@ -47,7 +47,7 @@ namespace SLRGenerator
                     if (newItems.All(x => x.Value == Constants.EndSymbol))
                         continue;
 
-                    var newRule = new Rule { NonTerminal = rule.NonTerminal, Items = newItems };
+                    var newRule = new Rule {NonTerminal = rule.NonTerminal, Items = newItems};
                     var index = _rules.FindLastIndex(x => x.NonTerminal == newRule.NonTerminal);
                     _rules.Insert(index + 1, newRule);
                 }

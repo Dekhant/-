@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using SLRGenerator.Types;
 
@@ -50,7 +49,6 @@ namespace SLRGenerator.Table
 
                 var tableRule = new TableRule(key, _valueKeys);
                 foreach (var item in items)
-                    // Последний элемент
                     if (_rules[item.Id.RuleIndex].Items.Count <= item.Id.ItemIndex + 1)
                     {
                         var nextItems = FindNextRecursive(_rules[item.Id.RuleIndex].NonTerminal);
@@ -58,12 +56,10 @@ namespace SLRGenerator.Table
                             AddFold(tableRule, new RuleItemId(nextItem.Id.RuleIndex, nextItem.Id.ItemIndex - 1),
                                 new RuleItem("R" + (item.Id.RuleIndex + 1)));
                     }
-                    // Конец цепочки
                     else if (_rules[item.Id.RuleIndex].Items[item.Id.ItemIndex + 1].Value == Constants.EndSymbol)
                     {
                         tableRule.Values[Constants.EndSymbol].Add(new RuleItem("R" + (item.Id.RuleIndex + 1)));
                     }
-                    // Не последний элемент
                     else
                     {
                         AddNext(tableRule, item.Id);

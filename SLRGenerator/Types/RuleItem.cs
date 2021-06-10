@@ -21,11 +21,6 @@ namespace SLRGenerator.Types
             }
         }
 
-        public RuleItem Clone()
-        {
-            return new(Value);
-        }
-
         public bool IsTerminal => _terminal != null;
 
         public string Value => _nonTerminal ?? (_terminal ??
@@ -40,6 +35,11 @@ namespace SLRGenerator.Types
             if (ReferenceEquals(this, other)) return true;
             return Equals(_nonTerminal, other._nonTerminal) && Equals(_terminal, other._terminal) &&
                    Equals(Id, other.Id);
+        }
+
+        public RuleItem Clone()
+        {
+            return new(Value);
         }
 
 

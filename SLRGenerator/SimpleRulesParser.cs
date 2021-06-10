@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using SLRGenerator.Types;
@@ -54,14 +53,12 @@ namespace SLRGenerator
 
             for (var i = 0; i < fixedRules.Count; i++)
             for (var j = 0; j < fixedRules[i].Items.Count; j++)
-                    fixedRules[i].Items[j].Id = new RuleItemId(i, j);
+                fixedRules[i].Items[j].Id = new RuleItemId(i, j);
 
             foreach (var item in fixedRules) Console.WriteLine(item);
             Console.WriteLine();
 
             return fixedRules;
         }
-
     }
-    
 }

@@ -10,10 +10,10 @@ namespace SLRGenerator
     public class Analyzer
     {
         private readonly string[] _input;
-        private readonly ImmutableList<Rule> _rules;
-        private readonly ImmutableList<TableRule> _tableRules;
+        private readonly List<Rule> _rules;
+        private readonly List<TableRule> _tableRules;
 
-        public Analyzer(Stream stream, ImmutableList<TableRule> table, ImmutableList<Rule> rules)
+        public Analyzer(Stream stream, List<TableRule> table, List<Rule> rules)
         {
             _input = InputParser(stream);
             _tableRules = table;

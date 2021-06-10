@@ -7,10 +7,10 @@ namespace SLRGenerator.Table
 {
     public class TableBuilder
     {
-        private readonly ImmutableList<Rule> _rules;
-        private readonly ImmutableList<string> _valueKeys;
+        private readonly List<Rule> _rules;
+        private readonly List<string> _valueKeys;
 
-        public TableBuilder(ImmutableList<Rule> rules)
+        public TableBuilder(List<Rule> rules)
         {
             _rules = rules;
             var valueKeys = new HashSet<string>();
@@ -23,10 +23,10 @@ namespace SLRGenerator.Table
             }
 
             valueKeys.Add(Constants.EndSymbol);
-            _valueKeys = valueKeys.ToImmutableList();
+            _valueKeys = valueKeys.ToList();
         }
 
-        public ImmutableList<TableRule> CreateTable()
+        public List<TableRule> CreateTable()
         {
             var tableRules = new List<TableRule>();
             var keyQueue = new Queue<RuleItems>();
@@ -73,7 +73,7 @@ namespace SLRGenerator.Table
                 AddToQueue(tableRule);
             }
 
-            return tableRules.ToImmutableList();
+            return tableRules;
 
             void AddNext(TableRule tableRule, RuleItemId itemId)
             {

@@ -9,7 +9,6 @@ namespace SLRGenerator
         private static void Main()
         {
             var rules = SimpleRulesParser.Parse(File.OpenRead("rules.txt"));
-
             var tableBuilder = new TableBuilder(rules);
             var tableRules = tableBuilder.CreateTable();
             CsvExport.SaveToCsv(tableRules);

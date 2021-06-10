@@ -19,7 +19,7 @@ namespace SLRGenerator
             });
         }
 
-        public static ImmutableList<Rule> Parse(Stream stream)
+        public static List<Rule> Parse(Stream stream)
         {
             using var sr = new StreamReader(stream);
             string line;
@@ -50,16 +50,18 @@ namespace SLRGenerator
                 rules[0].Items.Add(new RuleItem(Constants.EndSymbol, true));
             }
 
-            if (rules[0].Items.Any(x => x == rules[0].NonTerminal)) InsertRuleAtStart(rules);
+            var fixedRules = new EmptyRemover(rules).RemoveEmpty();
 
-            for (var i = 0; i < rules.Count; i++)
-            for (var j = 0; j < rules[i].Items.Count; j++)
-                rules[i].Items[j].Id = new RuleItemId(i, j);
+            for (var i = 0; i < fixedRules.Count; i++)
+            for (var j = 0; j < fixedRules[i].Items.Count; j++)
+                    fixedRules[i].Items[j].Id = new RuleItemId(i, j);
 
-            foreach (var item in rules) Console.WriteLine(item);
+            foreach (var item in fixedRules) Console.WriteLine(item);
             Console.WriteLine();
 
-            return rules.ToImmutableList();
+            return fixedRules;
         }
+
     }
+    
 }

@@ -21,6 +21,11 @@ namespace SLRGenerator.Types
             }
         }
 
+        public RuleItem Clone()
+        {
+            return new(Value);
+        }
+
         public bool IsTerminal => _terminal != null;
 
         public string Value => _nonTerminal ?? (_terminal ??

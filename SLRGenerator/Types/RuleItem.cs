@@ -42,12 +42,6 @@ namespace SLRGenerator.Types
             return new(Value);
         }
 
-
-        public override string ToString()
-        {
-            return Value + Id;
-        }
-
         public static bool operator ==(RuleItem ruleItem, string value)
         {
             if (!ReferenceEquals(null, ruleItem))
@@ -78,6 +72,11 @@ namespace SLRGenerator.Types
         public override int GetHashCode()
         {
             return HashCode.Combine(_nonTerminal, _terminal, Id);
+        }
+
+        public override string ToString()
+        {
+            return Value + Id;
         }
     }
 }

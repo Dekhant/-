@@ -23,7 +23,7 @@ namespace SLRGenerator
         {
             using var sr = new StreamReader(stream);
             string line;
-            string[] split = { };
+            var split = Array.Empty<string>();
             while ((line = sr.ReadLine()) != null)
             {
                 split = line.Split();

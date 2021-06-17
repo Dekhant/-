@@ -67,7 +67,7 @@ namespace SLRGenerator
                         var rule = _rules[ruleNumber];
 
                         if (rule.Items[0].Value != Constants.EmptySymbol)
-                            for (var i = 0; i < rule.Items.Count; i++)
+                            for (var i = 0; i < rule.Items.Count && rule.Items[i].Value != Constants.EndSymbol; i++)
                             {
                                 left.Pop();
                                 right.Pop();

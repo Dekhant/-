@@ -161,39 +161,26 @@ namespace LL1Generator.Tests
         [Fact]
         public void Test9()
         {
-            var expectedCase = new StreamReader("../../../Expected/9.test");
             const string way = "../../../TestCases/9.test";
             var rules = new List<string>();
 
             var p = new Program();
             var actual = Program.CheckTests(way, rules);
-            var expected = new List<string>();
-            string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
 
-            Assert.Equal(expected, actual);
+            Assert.Null(actual);
         }
 
         [Fact]
         public void Test10()
         {
-            var expectedCase = new StreamReader("../../../Expected/10.test");
             const string way = "../../../TestCases/10.test";
             var rules = new List<string>();
 
             var p = new Program();
             var actual = Program.CheckTests(way, rules);
             var expected = new List<string>();
-            string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
 
-            Assert.Equal(expected, actual);
+            Assert.Null(actual);
         }
 
         [Fact]
@@ -220,6 +207,143 @@ namespace LL1Generator.Tests
         {
             var expectedCase = new StreamReader("../../../Expected/12.test");
             const string way = "../../../TestCases/12.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test13()
+        {
+            const string way = "../../../TestCases/13.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+
+            Assert.Null(actual);
+        }
+
+        [Fact]
+        public void Test14()
+        {
+            var expectedCase = new StreamReader("../../../Expected/14.test");
+            const string way = "../../../TestCases/14.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test15()
+        {
+            const string way = "../../../TestCases/15.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+            Assert.Null(actual);
+        }
+
+        [Fact]
+        public void Test16()
+        {
+            var expectedCase = new StreamReader("../../../Expected/16.test");
+            const string way = "../../../TestCases/16.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test17()
+        {
+            var expectedCase = new StreamReader("../../../Expected/17.test");
+            const string way = "../../../TestCases/17.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test18()
+        {
+            var expectedCase = new StreamReader("../../../Expected/18.test");
+            const string way = "../../../TestCases/18.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test19()
+        {
+            var expectedCase = new StreamReader("../../../Expected/19.test");
+            const string way = "../../../TestCases/19.test";
+            var rules = new List<string>();
+
+            var p = new Program();
+            var actual = Program.CheckTests(way, rules);
+            var expected = new List<string>();
+            string line;
+            while ((line = expectedCase.ReadLine()) != null)
+            {
+                expected.Add(line);
+            }
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test20()
+        {
+            var expectedCase = new StreamReader("../../../Expected/20.test");
+            const string way = "../../../TestCases/20.test";
             var rules = new List<string>();
 
             var p = new Program();

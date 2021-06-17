@@ -1,14 +1,14 @@
 F -> M1 $ / f, a
 M1 -> f A / f
 M1 -> a C / a
-A -> M1 / f, a
-A -> B / c, a, b, $
-A -> a / a
-C -> B / c, a, b, $
-C -> d / d
 B -> c E / c
-B -> E / a, $, b
-E -> D E / a, b
+B -> E / $, b, a
+E -> D E / b, a
 E -> & / $
-D -> a / a
+A -> B / c, $, b, a
+A -> a / a
+A -> M1 / f, a
+C -> d / d
+C -> B / c, $, b, a
 D -> b / b
+D -> a / a

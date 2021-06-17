@@ -12,7 +12,7 @@ namespace SLRGenerator.Table
     {
         public static void SaveToCsv(IList<TableRule> rules)
         {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture) {Delimiter = ";"};
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture) {Delimiter = ";", SanitizeForInjection = true};
             using var csv = new CsvWriter(new StreamWriter("table.csv"), config);
             csv.WriteField("");
             foreach (var item in rules.First().Values) csv.WriteField(item.Key);

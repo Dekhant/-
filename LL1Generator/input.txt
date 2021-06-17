@@ -1,2 +1,4 @@
-S -> E $
-E -> E + E | i
+F -> A $
+A -> b | a B | a C
+B -> b
+C -> b c

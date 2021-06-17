@@ -55,9 +55,9 @@ namespace SLRGenerator
 
                     if (items.Count == 0)
                         throw new Exception("Items are empty");
-
+                    
                     var elements = items.First().Value;
-                    if (elements.First().Value.StartsWith("R"))
+                    if (elements.First().Value.Length > 1 && elements.First().Value.StartsWith("R") && char.IsDigit(elements.First().Value[1]))
                     {
                         if (character != "")
                             inputStack.Push(character);

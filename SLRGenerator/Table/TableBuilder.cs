@@ -128,7 +128,7 @@ namespace SLRGenerator.Table
                     .Where(x => x.Value.Count > 0))
                 {
                     var value = item.Value;
-                    if (!queueBlackList.Contains(value) && !value[0].Value.Contains("R"))
+                    if (!queueBlackList.Contains(value) && !(value[0].Value.Contains("R") && char.IsDigit(value[0].Value[1])))
                         keyQueue.Enqueue(value);
                 }
             }

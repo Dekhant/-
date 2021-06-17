@@ -63,6 +63,7 @@ namespace LL1Generator
                 foundNonTerm = false;
                 foreach (var nonTerm in ruleList.NonTerminals)
                 {
+                    var uniqueEntrances = new HashSet<List<RuleItem>>();
                     foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == nonTerm))
                     {
                         var index = ruleList.Rules.IndexOf(rule);
@@ -73,8 +74,15 @@ namespace LL1Generator
                                 x.NonTerminal == leadSymbol.Value && x != rule))
                             {
                                 var leadRuleIndex = ruleList.Rules.IndexOf(leadRule);
-
-                                leads[index].AddRange(leads[leadRuleIndex]);
+                                if (!uniqueEntrances.Contains(leads[leadRuleIndex]))
+                                {
+                                    uniqueEntrances.Add(leads[leadRuleIndex]);
+                                    leads[index].AddRange(leads[leadRuleIndex]);
+                                }
+                                else
+                                {
+                                    return null;
+                                }
                             }
 
                             leads[index].RemoveAt(leads[index].IndexOf(leadSymbol));

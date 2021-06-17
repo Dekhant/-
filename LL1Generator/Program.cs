@@ -14,7 +14,12 @@ namespace LL1Generator
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
             var leads = Leads.FindLeads(removedRecursionRules);
-            foreach(var nonterm in removedRecursionRules.NonTerminals)
+            if(leads == null)
+            {
+                Console.WriteLine("Not LL grammar");
+                return;
+            }
+            foreach (var nonterm in removedRecursionRules.NonTerminals)
             {
                 var rules = removedRecursionRules.Rules.Where(x => x.NonTerminal == nonterm).ToList();
                 if (rules.Count > 1)
@@ -24,11 +29,11 @@ namespace LL1Generator
                     {
                         var index = removedRecursionRules.Rules.IndexOf(rule);
                         var lead = leads[index];
-                        foreach(var item in lead)
+                        foreach (var item in lead)
                         {
-                            foreach(var unique in uniqueLeads)
+                            foreach (var unique in uniqueLeads)
                             {
-                                if(unique.Value ==  item.Value)
+                                if (unique.Value == item.Value)
                                 {
                                     Console.WriteLine("Not LL grammar");
                                     return;
@@ -79,6 +84,10 @@ namespace LL1Generator
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
             var leads = Leads.FindLeads(removedRecursionRules);
+            if(leads == null)
+            {
+                return null;
+            }
             for (var i = 0; i < removedRecursionRules.Rules.Count; i++)
             {
                 rules.Add(removedRecursionRules.Rules[i] + " / " + ConvertLead(leads[i]));

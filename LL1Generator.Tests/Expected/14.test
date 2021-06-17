@@ -1,7 +1,7 @@
 F -> P1 $ / oy
 P1 -> oy P2 ay P3 / oy
 P2 -> nu A / nu
-A -> P2 / nu
-A -> & / ay
 P3 -> ho P3 ho / ho
 P3 -> uh-ti / uh-ti
+A -> P2 / nu
+A -> & / ay

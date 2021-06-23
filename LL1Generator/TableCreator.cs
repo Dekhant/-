@@ -10,7 +10,7 @@ namespace LL1Generator
 {
     public static class TableCreator
     {
-        public static List<TableRule> CreateTable(RuleList ruleList, List<List<RuleItem>> leads)
+        public static List<TableRule> CreateTable(RuleList ruleList, List<HashSet<RuleItem>> leads)
         {
             var table = new List<TableRule>();
             var id = 0;
@@ -28,7 +28,7 @@ namespace LL1Generator
             foreach (var rule in ruleList.Rules)
             foreach (var item in rule.Items)
             {
-                var lead = new List<RuleItem>();
+                var lead = new HashSet<RuleItem>();
                 if (item.IsTerminal && item.Value != Constants.EmptySymbol)
                 {
                     lead.Add(item);
@@ -72,7 +72,7 @@ namespace LL1Generator
                     }
 
                     foreach (var index in nonTerms.Select(nonTerm => ruleList.Rules.IndexOf(nonTerm)))
-                        lead.AddRange(leads[index]);
+                        lead.UnionWith(leads[index]);
 
                     var stack = rule.Items.IndexOf(item) != rule.Items.Count - 1;
                     table.Add(new TableRule

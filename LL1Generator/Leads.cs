@@ -8,7 +8,7 @@ namespace LL1Generator
     {
         private static IEnumerable<RuleItem> FindUpRule(RuleList ruleList, RuleItem emptyItem, ref List<Used> usedRules)
         {
-            var lead = new List<RuleItem>();
+            var lead = new HashSet<RuleItem>();
             foreach (var rule in ruleList.Rules)
             {
                 var item = rule.Items.Where(x => x.Value == emptyItem.Value).ToList();
@@ -22,7 +22,7 @@ namespace LL1Generator
                             {
                                 usedRules.Add(new Used(rule, index));
                                 var newEmptyItem = new RuleItem(rule.NonTerminal, false);
-                                lead.AddRange(FindUpRule(ruleList, newEmptyItem, ref usedRules));
+                                lead.UnionWith(FindUpRule(ruleList, newEmptyItem, ref usedRules));
                             }
                             else
                             {
@@ -36,19 +36,19 @@ namespace LL1Generator
             return lead;
         }
 
-        public static List<List<RuleItem>> FindLeads(RuleList ruleList)
+        public static List<HashSet<RuleItem>> FindLeads(RuleList ruleList)
         {
-            var leads = new List<List<RuleItem>>(ruleList.Rules.Count);
+            var leads = new List<HashSet<RuleItem>>(ruleList.Rules.Count);
             for (var i = 0; i < ruleList.Rules.Count; i++)
             {
-                leads.Add(new List<RuleItem>());
+                leads.Add(new HashSet<RuleItem>());
                 var rule = ruleList.Rules[i];
                 if (rule.Items[0].Value == Constants.EmptySymbol)
                 {
                     var emptyItem = new RuleItem(rule.NonTerminal, false);
                     var usedRules = new List<Used>();
                     var lead = FindUpRule(ruleList, emptyItem, ref usedRules).ToHashSet().ToList();
-                    leads[i].AddRange(lead);
+                    leads[i].UnionWith(lead);
                     usedRules.Clear();
                 }
                 else
@@ -56,46 +56,30 @@ namespace LL1Generator
                     leads[i].Add(rule.Items[0]);
                 }
             }
-
-            var foundNonTerm = true;
-            while (foundNonTerm)
+           for(; ; )
             {
-                foundNonTerm = false;
-                foreach (var nonTerm in ruleList.NonTerminals)
+                var somethingChanged = false;
+                foreach(var lead in leads)
                 {
-                    var uniqueEntrances = new HashSet<List<RuleItem>>();
-                    foreach (var rule in ruleList.Rules.Where(x => x.NonTerminal == nonTerm))
+                    var nonTerms = lead.Where(x => !x.IsTerminal).ToList();
+                    if(nonTerms.Count > 0)
                     {
-                        var index = ruleList.Rules.IndexOf(rule);
-                        foreach (var leadSymbol in leads[index].ToList().Where(leadSymbol => !leadSymbol.IsTerminal))
+                        somethingChanged = true;
+                    }
+                    foreach(var nonTerm in nonTerms)
+                    {
+                        lead.Remove(nonTerm);
+                        var rulesWithNonTerm = ruleList.Rules.Select((x, i) => (x, i)).Where(x => x.x.NonTerminal == nonTerm.Value).Select(x => x.i).ToList();
+                        foreach(var fVal in rulesWithNonTerm.SelectMany(rule => leads[rule]).ToList())
                         {
-                            foundNonTerm = true;
-                            foreach (var leadRule in ruleList.Rules.Where(x =>
-                                x.NonTerminal == leadSymbol.Value && x != rule))
-                            {
-                                var leadRuleIndex = ruleList.Rules.IndexOf(leadRule);
-                                if (!uniqueEntrances.Contains(leads[leadRuleIndex]))
-                                {
-                                    uniqueEntrances.Add(leads[leadRuleIndex]);
-                                    leads[index].AddRange(leads[leadRuleIndex]);
-                                }
-                                else
-                                {
-                                    return null;
-                                }
-                            }
-
-                            leads[index].RemoveAt(leads[index].IndexOf(leadSymbol));
+                            lead.Add(fVal);
                         }
                     }
                 }
-            }
-
-            var j = 0;
-            foreach (var lead in leads.ToList())
-            {
-                leads[j] = lead.ToHashSet().ToList();
-                j++;
+                if(!somethingChanged)
+                {
+                    break;
+                }
             }
 
             return leads;

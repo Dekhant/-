@@ -7,7 +7,7 @@ namespace LL1Generator.Entities
         public int Id { get; init; }
 
         public string NonTerminal { get; init; }
-        public List<RuleItem> FirstsSet { get; init; }
+        public HashSet<RuleItem> FirstsSet { get; init; }
         public HashSet<string> DirSet { get; set; }
         public int? GoTo { get; init; }
         public bool IsError { get; set; }

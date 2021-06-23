@@ -10,6 +10,7 @@ namespace LL1Generator
     {
         public static void Main()
         {
+            bool useLexer = true;
             var parsedRules = Parser.ParseInput(File.OpenRead("../../../input.txt"));
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
@@ -35,20 +36,81 @@ namespace LL1Generator
                 }
             }
 
-            foreach (var rule in removedRecursionRules.Rules) Console.WriteLine(rule);
+
+            for (var i = 0; i < removedRecursionRules.Rules.Count; i++)
+            {
+                Console.Write(removedRecursionRules.Rules[i] + " / ");
+                foreach(var lead in leads[i])
+                {
+                    Console.Write(lead + ", ");
+                }
+                Console.WriteLine();
+            }
             var table = TableCreator.CreateTable(removedRecursionRules, leads);
             TableCreator.ExportTable(table);
             var input = TableRunner.ParseSentence(File.OpenRead("../../../sentence.txt"));
             List<int> history;
-            try
+            if (useLexer)
             {
-                history = TableRunner.Analyze(input, table);
+                var sr = new StreamReader("../../../sentence.txt");
+                var sw = new StreamWriter("../../../outputLexer.txt");
+                var lexer = new CLexer(ref sr, ref sw);
+                string[] newInput;
+                var result = new List<string>();
+                foreach (var str in input.ToList())
+                {
+                    var typeToken = "";
+                    lexer.RunPerToken(str, ref typeToken);
+                    if (typeToken == "Identifier")
+                    {
+                        result.Add("id");
+                    }
+                    else
+                    if (typeToken == "Integer")
+                    {
+                        result.Add("!int");
+                    }
+                    else
+                    if (typeToken == "Float")
+                    {
+                        result.Add("!float");
+                    }
+                    else
+                    if (typeToken == "Char")
+                    {
+                        result.Add("!char");
+                    }
+                    else
+                    if (typeToken == "String")
+                    {
+                        result.Add("!string");
+                    }
+                    else
+                        result.Add(str);
+                }
+                sr.Close();
+                sw.Close();
+                newInput = result.ToArray();
+                try
+                {
+                    history = TableRunner.Analyze(newInput, table, useLexer);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return;
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
+            else
+                try
+                {
+                    history = TableRunner.Analyze(input, table);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return;
+                }
 
             Console.WriteLine($"Correct! History: [{string.Join(", ", history)}]");
         }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "lexer": {
+      "commandName": "Project",
+      "commandLineArgs": "input.txt output.txt"
+    }
+  }
+}

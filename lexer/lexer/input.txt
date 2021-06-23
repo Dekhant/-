@@ -1,0 +1,23 @@
+1.1 / -1.1 * - ( - ( -123 * -1) - -1.1 
+
+int main(int[] args) //   asd 
+{
+	1float  float1  fl = 2.5;
+	fl = 0xF12A;
+	string str = "   */        //    ";
+	int id = 1;
+	int idBin = 0b01001;
+	char ch = "a" 1a;
+	12312312311111111111111111111111111111111111111111111111111111;
+	abcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh;
+	abcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgha;
+	float fl = 2.5E+10; //TODO
+	fl = fl + 12 / 4;
+	if (id <= fl equal fl > 0xF12A)
+	{
+		"commented string
+		int ch = 123; /*
+		string;
+	} */
+	string 1error;
+ } //TODO 2.5E-10, string eof, eof, int length

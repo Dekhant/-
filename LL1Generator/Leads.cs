@@ -52,30 +52,31 @@ namespace LL1Generator
                     leads[i].Add(rule.Items[0]);
                 }
             }
-           for(; ; )
+
+            while(true)
             {
                 var somethingChanged = false;
-                foreach(var lead in leads)
+                foreach (var lead in leads)
                 {
                     var nonTerms = lead.Where(x => !x.IsTerminal).ToList();
-                    if(nonTerms.Count > 0)
+                    if (nonTerms.Count > 0)
                     {
                         somethingChanged = true;
                     }
-                    foreach(var nonTerm in nonTerms)
+
+                    foreach (var nonTerm in nonTerms)
                     {
                         lead.Remove(nonTerm);
-                        var rulesWithNonTerm = ruleList.Rules.Select((x, i) => (x, i)).Where(x => x.x.NonTerminal == nonTerm.Value).Select(x => x.i).ToList();
-                        foreach(var fVal in rulesWithNonTerm.SelectMany(rule => leads[rule]).ToList())
+                        var rulesWithNonTerm = ruleList.Rules.Select((x, i) => (x, i))
+                            .Where(x => x.x.NonTerminal == nonTerm.Value).Select(x => x.i).ToList();
+                        foreach (var fVal in rulesWithNonTerm.SelectMany(rule => leads[rule]).ToList())
                         {
                             lead.Add(fVal);
                         }
                     }
                 }
-                if(!somethingChanged)
-                {
-                    break;
-                }
+
+                if (!somethingChanged) break;
             }
 
             return leads;

@@ -14,7 +14,7 @@ namespace LL1Generator
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
             var leads = Leads.FindLeads(removedRecursionRules);
-            foreach (var nonterm in removedRecursionRules.NonTerminals)       
+            foreach (var nonTerm in removedRecursionRules.NonTerminals)
             {
                 var rules = removedRecursionRules.Rules.Where(x => x.NonTerminal == nonTerm).ToList();
                 if (rules.Count > 1)

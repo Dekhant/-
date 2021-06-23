@@ -13,14 +13,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/1.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -32,14 +28,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/2.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -51,14 +43,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/3.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -70,14 +58,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/4.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -89,14 +73,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/5.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -108,14 +88,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/6.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -127,14 +103,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/7.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -146,14 +118,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/8.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -164,8 +132,7 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/9.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
 
             Assert.Null(actual);
         }
@@ -176,9 +143,7 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/10.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
-            var expected = new List<string>();
+            var actual = Extension.CheckTests(way, rules);
 
             Assert.Null(actual);
         }
@@ -190,14 +155,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/11.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -209,14 +170,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/12.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -227,8 +184,7 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/13.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
 
             Assert.Null(actual);
         }
@@ -240,14 +196,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/14.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -258,8 +210,7 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/15.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             Assert.Null(actual);
         }
 
@@ -270,14 +221,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/16.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -289,14 +236,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/17.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -308,14 +251,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/18.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -327,14 +266,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/19.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }
@@ -346,14 +281,10 @@ namespace LL1Generator.Tests
             const string way = "../../../TestCases/20.test";
             var rules = new List<string>();
 
-            var p = new Program();
-            var actual = Program.CheckTests(way, rules);
+            var actual = Extension.CheckTests(way, rules);
             var expected = new List<string>();
             string line;
-            while ((line = expectedCase.ReadLine()) != null)
-            {
-                expected.Add(line);
-            }
+            while ((line = expectedCase.ReadLine()) != null) expected.Add(line);
 
             Assert.Equal(expected, actual);
         }

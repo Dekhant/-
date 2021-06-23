@@ -14,9 +14,9 @@ namespace LL1Generator
             var factorizedRules = Factorization.RemoveFactorization(parsedRules);
             var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
             var leads = Leads.FindLeads(removedRecursionRules);
-            foreach (var nonterm in removedRecursionRules.NonTerminals)
+            foreach (var nonterm in removedRecursionRules.NonTerminals)       
             {
-                var rules = removedRecursionRules.Rules.Where(x => x.NonTerminal == nonterm).ToList();
+                var rules = removedRecursionRules.Rules.Where(x => x.NonTerminal == nonTerm).ToList();
                 if (rules.Count > 1)
                 {
                     var uniqueLeads = new List<RuleItem>();
@@ -24,28 +24,25 @@ namespace LL1Generator
                     {
                         var index = removedRecursionRules.Rules.IndexOf(rule);
                         var lead = leads[index];
-                        foreach (var item in lead)
+                        if (lead.Any(item => uniqueLeads.Any(unique => unique.Value == item.Value)))
                         {
-                            foreach (var unique in uniqueLeads)
-                            {
-                                if (unique.Value == item.Value)
-                                {
-                                    Console.WriteLine("Not LL grammar");
-                                    return;
-                                }
-                            }
+                            Console.WriteLine("Not LL grammar");
+                            return;
                         }
+
                         uniqueLeads.AddRange(lead);
                     }
                 }
             }
+
             foreach (var rule in removedRecursionRules.Rules) Console.WriteLine(rule);
             var table = TableCreator.CreateTable(removedRecursionRules, leads);
             TableCreator.ExportTable(table);
             var input = TableRunner.ParseSentence(File.OpenRead("../../../sentence.txt"));
+            List<int> history;
             try
             {
-                TableRunner.Analyze(input, table);
+                history = TableRunner.Analyze(input, table);
             }
             catch (Exception ex)
             {
@@ -53,42 +50,7 @@ namespace LL1Generator
                 return;
             }
 
-            Console.WriteLine("Correct!");
+            Console.WriteLine($"Correct! History: [{string.Join(", ", history)}]");
         }
-
-        //private static string ConvertLead(HashSet<RuleItem> lead)
-        //{
-        //    var leadLine = "";
-
-        //    for (var i = 0; i < lead.Count; i++)
-        //    {
-        //        leadLine += lead[i].Value;
-        //        if (lead.Count > 1 && i != lead.Count - 1)
-        //        {
-        //            leadLine += ", ";
-        //        }
-        //    }
-
-        //    return leadLine;
-        //}
-
-
-        //public static List<string> CheckTests(string way, List<string> rules)
-        //{
-        //    var parsedRules = Parser.ParseInput(File.OpenRead(way));
-        //    var factorizedRules = Factorization.RemoveFactorization(parsedRules);
-        //    var removedRecursionRules = LeftRecursionRemover.RemoveLeftRecursion(factorizedRules);
-        //    var leads = Leads.FindLeads(removedRecursionRules);
-        //    if(leads == null)
-        //    {
-        //        return null;
-        //    }
-        //    for (var i = 0; i < removedRecursionRules.Rules.Count; i++)
-        //    {
-        //        rules.Add(removedRecursionRules.Rules[i] + " / " + ConvertLead(leads[i]));
-        //    }
-
-        //    return rules;
-        //}
     }
 }

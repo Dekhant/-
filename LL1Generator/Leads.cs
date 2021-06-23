@@ -13,9 +13,7 @@ namespace LL1Generator
             {
                 var item = rule.Items.Where(x => x.Value == emptyItem.Value).ToList();
                 if (item.Count != 0)
-                {
                     foreach (var index in item.Select(t => rule.Items.IndexOf(t)))
-                    {
                         if (!usedRules.Contains(new Used(rule, index)))
                         {
                             if (index == rule.Items.Count - 1)
@@ -29,8 +27,6 @@ namespace LL1Generator
                                 lead.Add(rule.Items[index + 1]);
                             }
                         }
-                    }
-                }
             }
 
             return lead;
@@ -95,7 +91,11 @@ namespace LL1Generator
 
             private Rule Rule { get; }
             private int Index { get; }
-            public override string ToString() => $"({Rule}, {Index})";
+
+            public override string ToString()
+            {
+                return $"({Rule}, {Index})";
+            }
         }
     }
 }

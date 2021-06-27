@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SLRGenerator
+﻿namespace SLRGenerator
 {
     public enum TokenType
     {
-		Identifier,
-		Integer,
-		Float,
-		Binary,
-		Octal,
-		Hexadecimal,
-		Char,
-		String,
-		Array,
-		Keyword,
-		ArithmeticOperator,
-		ComparisonOperator,
-		LogicOperator,
-		Bracket,
-		Separator,
-		Comment,
-		Error,
-		EoF,
-		MultiCommStart,
-		MultiCommEnd
-	}
+        Identifier,
+        Integer,
+        Float,
+        Binary,
+        Octal,
+        Hexadecimal,
+        Char,
+        String,
+        Array,
+        Keyword,
+        ArithmeticOperator,
+        ComparisonOperator,
+        LogicOperator,
+        Bracket,
+        Separator,
+        Comment,
+        Error,
+        EoF,
+        MultiCommStart,
+        MultiCommEnd
+    }
 }

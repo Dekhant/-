@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SLRGenerator
+﻿namespace SLRGenerator
 {
     public struct Token
     {

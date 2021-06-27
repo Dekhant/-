@@ -43,29 +43,26 @@ namespace SLRGenerator
                 {
                     result.Add("id");
                 }
-                else
-                if (typeToken == "Integer")
+                else if (typeToken == "Integer")
                 {
                     result.Add("!int");
                 }
-                else
-                if (typeToken == "Float")
+                else if (typeToken == "Float")
                 {
                     result.Add("!float");
                 }
-                else
-                if (typeToken == "Char")
+                else if (typeToken == "Char")
                 {
                     result.Add("!char");
                 }
-                else
-                if (typeToken == "String")
+                else if (typeToken == "String")
                 {
                     result.Add("!string");
                 }
                 else
                     result.Add(str);
             }
+
             sr.Close();
             sw.Close();
             newInput = result.ToArray();

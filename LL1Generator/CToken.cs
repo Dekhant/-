@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LL1Generator
+﻿namespace LL1Generator
 {
     public struct Token
     {

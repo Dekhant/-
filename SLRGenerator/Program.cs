@@ -8,20 +8,25 @@ namespace SLRGenerator
     {
         private static void Main()
         {
+            var useLexer = true;
             var rules = SimpleRulesParser.Parse(File.OpenRead("rules.txt"));
             var tableBuilder = new TableBuilder(rules);
             var tableRules = tableBuilder.CreateTable();
             CsvExport.SaveToCsv(tableRules);
 
             var input = File.OpenRead("input.txt");
-            var analyzer = new Analyzer(input, tableRules, rules);
-            try
+
+            if (useLexer)
             {
-                analyzer.Analyze();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                var analyzer = new Analyzer(input, tableRules, rules);
+                try
+                {
+                    analyzer.Analyze();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }

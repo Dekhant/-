@@ -1,34 +1,9 @@
-<entry>	->	<operations>
-<operations>	->	<operation> ; <operations> | &
-<operation>	->	<if> | <for> | <say> | <sayl> | <fun> | id <fun_call> | id <step> | id = <expression> | ret <expression> | <initiator> id = <expression> | <type> id = <expression> | { <operations> }
-<conditions>	->	<condition> | <condition> <logic_op> <conditions>
-<condition>	->	<expression> <comp_op> <expression>
-<comp_op>	->	< | > | <= | >= | != | equal
-<logic_op>	->	and | or
-<if>	->	if ( <conditions> ) <operation> <else>
-<else>	->	else <operation> | { }
-<while>	->	while ( <conditions> ) <operation>
-<for>	->	for ( <initiator> id = <value> ; <conditions> ; id <step> ) <operation>
-<step>	->	++ | --
-<initiator>	->	let | const
-<type>	->	str | bool | int | float
-<say>	->	say ( <say_string> )
-<sayl>	->	sayl ( <say_string> )
-<say_string>	->	!str | id
-<ask>	->	ask ( )
-<askl>	->	askl ( )
-<fun>	->	fun <fun_type> id ( <fun_id_list> ) <operation>
-<fun_type>	->	<type> | &
-<fun_id_list>	->	<type> id <fun_id_list1>
-<fun_id_list1>	->	, <fun_id_list> | &
-<fun_call>	->	( <id_list> )
-<id_list>	->	id <id_list1>
-<id_list1>	->	, <id_list> | &
-<value>	->	id | !str | !bool | !float | !int | <ask> | <askl> | id <fun_call>
-<expression>	->	<expression1> <expression2>
-<expression1>	->	<expression3> <expression4>
-<expression2>	->	<summ_op> <expression1> <expression2> | &
-<expression4>	->	<multi_op> <expression3> <expression4> | &
-<expression3>	->	- <expression3> | <value> | ( <expression> )
+<entry>	->	<expression> $
+<value>	->	id | !float | !int
+<expression>	->	<expression_enum> <expression_summ>
+<expression_enum>	->	<expression_val> <expression_multi>
+<expression_summ>	->	<summ_op> <expression_enum> <expression_summ> | e
+<expression_multi>	->	<multi_op> <expression_val> <expression_multi> | e
+<expression_val>	->	- <expression_val> | <value> | ( <expression> )
 <multi_op>	->	* | /
 <summ_op>	->	- | +

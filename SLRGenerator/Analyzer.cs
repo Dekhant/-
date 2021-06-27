@@ -30,7 +30,44 @@ namespace SLRGenerator
                 break;
             }
 
-            return split;
+            var sr1 = new StreamReader("input.txt");
+            var sw = new StreamWriter("outputLexer.txt");
+            var lexer = new CLexer(ref sr1, ref sw);
+            string[] newInput;
+            var result = new List<string>();
+            foreach (var str in split.ToList())
+            {
+                var typeToken = "";
+                lexer.RunPerToken(str, ref typeToken);
+                if (typeToken == "Identifier")
+                {
+                    result.Add("id");
+                }
+                else if (typeToken == "Integer")
+                {
+                    result.Add("!int");
+                }
+                else if (typeToken == "Float")
+                {
+                    result.Add("!float");
+                }
+                else if (typeToken == "Char")
+                {
+                    result.Add("!char");
+                }
+                else if (typeToken == "String")
+                {
+                    result.Add("!string");
+                }
+                else
+                    result.Add(str);
+            }
+
+            sr.Close();
+            sw.Close();
+            newInput = result.ToArray();
+
+            return newInput;
         }
 
 
@@ -57,30 +94,32 @@ namespace SLRGenerator
                         throw new Exception("Items are empty");
 
                     var elements = items.First().Value;
-                    if (elements.First().Value.Length > 1 && elements.First().Value.StartsWith("R") &&
-                        char.IsDigit(elements.First().Value[1]))
+                    if (elements.First().Value.Length > 1 && elements.First().Value.StartsWith("R"))
                     {
-                        if (character != "")
-                            inputStack.Push(character);
+                        if (char.IsDigit(elements.First().Value[1]))
+                        {
+                            if (character != "")
+                                inputStack.Push(character);
 
-                        var ruleNumber =
-                            int.Parse(elements.First().Value.Substring(1, elements.First().Value.Length - 1)) - 1;
-                        var rule = _rules[ruleNumber];
+                            var ruleNumber =
+                                int.Parse(elements.First().Value.Substring(1, elements.First().Value.Length - 1)) - 1;
+                            var rule = _rules[ruleNumber];
 
-                        if (rule.Items[0].Value != Constants.EmptySymbol)
-                            for (var i = 0; i < rule.Items.Count && rule.Items[i].Value != Constants.EndSymbol; i++)
+                            if (rule.Items[0].Value != Constants.EmptySymbol)
+                                for (var i = 0; i < rule.Items.Count && rule.Items[i].Value != Constants.EndSymbol; i++)
+                                {
+                                    left.Pop();
+                                    right.Pop();
+                                }
+
+                            if (right.Count == 1 && left.Count == 0 && inputStack.Count == 0)
                             {
-                                left.Pop();
-                                right.Pop();
+                                Console.WriteLine("Analyzer correct!");
+                                return;
                             }
 
-                        if (right.Count == 1 && left.Count == 0 && inputStack.Count == 0)
-                        {
-                            Console.WriteLine("Analyzer correct!");
-                            return;
+                            inputStack.Push(rule.NonTerminal);
                         }
-
-                        inputStack.Push(rule.NonTerminal);
                     }
                     else
                     {

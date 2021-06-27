@@ -1,0 +1,159 @@
+1
+Bracket <(>
+2
+Bracket <(>
+Identifier <A>
+3
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+4
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+5
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+6
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+7
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+8
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+9
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+11
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+ArithmeticOperation <->
+Identifier <D>
+12
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+ArithmeticOperation <->
+Identifier <D>
+Bracket <)>
+13
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+ArithmeticOperation <->
+Identifier <D>
+Bracket <)>
+ArithmeticOperation <*>
+14
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+ArithmeticOperation <->
+Identifier <D>
+Bracket <)>
+ArithmeticOperation <*>
+Integer <2>
+15
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+ArithmeticOperation <->
+Identifier <D>
+Bracket <)>
+ArithmeticOperation <*>
+Integer <2>
+ArithmeticOperation </>
+16
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+ArithmeticOperation <->
+Identifier <D>
+Bracket <)>
+ArithmeticOperation <*>
+Integer <2>
+ArithmeticOperation </>
+Integer <1>
+17
+Bracket <(>
+Identifier <A>
+ArithmeticOperation <+>
+Identifier <B>
+Bracket <)>
+ArithmeticOperation </>
+Bracket <(>
+Identifier <C>
+ArithmeticOperation <+>
+ArithmeticOperation <->
+Identifier <D>
+Bracket <)>
+ArithmeticOperation <*>
+Integer <2>
+ArithmeticOperation </>
+Integer <1>
+End of File <$>
